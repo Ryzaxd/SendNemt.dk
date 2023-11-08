@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 
 var indexRouter = require('./routes/index');
+var formularRouter = require('./routes/formular');
 
 var app = express();
 
@@ -29,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', indexRouter);
-app.use('/formular', indexRouter);
+app.use('/formular', formularRouter);
 app.use('/sporPakke', indexRouter);
 app.use('/pakkeOversigt', indexRouter);
 app.use('/login', indexRouter);
