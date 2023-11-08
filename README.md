@@ -1,4 +1,4 @@
 # SendNemt.dk
 
-!(./public/images/sendnemt.png)
+![SendNemt.dk](../public/images/sendnemt.png)
 
