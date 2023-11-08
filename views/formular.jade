@@ -1,0 +1,58 @@
+extends layout
+
+block content
+  .container
+  header.header
+    img#logo(src="./images/sendnemt.png")
+    
+    h1 Formular til pakkeinformation
+
+  form.parcel-form(action="/submit-parcel-info", method="post")
+    // Afsenders information
+    .section
+      h2 Afsenders information
+      label(for="senderName") Navn:
+      input(type="text", id="senderName", name="senderName", required)
+
+      label(for="senderEmail") E-mail:
+      input(type="email", id="senderEmail", name="senderEmail", required)
+
+      label(for="senderPhone") Telefonnummer:
+      input(type="tel", id="senderPhone", name="senderPhone", required)
+
+      label(for="senderAddress") Adresse:
+      textarea(id="senderAddress", name="senderAddress", required)
+
+    // Modtagers information
+    .section
+      h2 Modtagers information
+      label(for="receiverName") Navn:
+      input(type="text", id="receiverName", name="receiverName", required)
+
+      label(for="receiverEmail") E-mail:
+      input(type="email", id="receiverEmail", name="receiverEmail", required)
+
+      label(for="receiverPhone") Telefonnummer:
+      input(type="tel", id="receiverPhone", name="receiverPhone", required)
+
+      label(for="receiverAddress") Adresse:
+      textarea(id="receiverAddress", name="receiverAddress", required)
+
+    // Pakkeinformation
+    .section
+      h2 Pakkeinformation
+      label(for="parcelWeight") Vægt (kg):
+      input(type="number", id="parcelWeight", name="parcelWeight", min="0", step="0.01", required)
+
+      label(for="parcelDimensions") Mål (L x B x H i cm):
+      input(type="text", id="parcelDimensions", name="parcelDimensions", required)
+
+      label(for="parcelContents") Indhold:
+      textarea(id="parcelContents", name="parcelContents", required)
+
+      label(for="parcelValue") Værdi (kr):
+      input(type="number", id="parcelValue", name="parcelValue", min="0", step="0.01", required)
+
+    button.submit-button(type="submit") Indsend
+
+    a.button(href="/") Tilbage

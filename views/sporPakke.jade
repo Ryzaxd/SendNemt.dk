@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  img#logo(src="./images/sendnemt.png")
+  
+  form(action="/tracePackage", method="post")
+    label(for="hash") Indtast pakke ID:
+    input#hash(type="text", name="hash")
+    button(type="submit") Spor pakke
+
+    a.button(href="/") Tilbage
