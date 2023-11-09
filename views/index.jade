@@ -1,12 +1,11 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 Velkommen til #{title}
+
   img#logo(src="./images/sendnemt.png")
   
-  a.formular.button(href="/formular") Send pakke
-
-  a.sporPakke.button(href="/sporPakke") Spor Din pakke
-
-  a.pakkeOversigt.button(href="/pakkeOversigt") Pakkeoversigt
+  div.centered-links
+    a.formular.button(href="/formular") Send pakke
+    a.sporPakke.button(href="/sporPakke") Spor Din pakke
+    a.pakkeOversigt.button(href="/pakkeOversigt") Pakkeoversigt

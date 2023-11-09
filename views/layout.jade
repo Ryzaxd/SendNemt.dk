@@ -1,7 +1,22 @@
-doctype html
 html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    header
+      nav
+        ul
+          li
+            a.button(href='/') Home
+          li
+            a.button(href='/formular') Send pakke 
+          li
+            a.button(href='/sporPakke') Spor pakke
+          li
+            a.button(href='/pakkeOversigt') Pakke oversigt
+
   body
     block content
+
+
+  footer
+    p Copyright © 2023 SendNemt.dk
