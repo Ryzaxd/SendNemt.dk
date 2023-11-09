@@ -1,9 +1,8 @@
 extends layout
 
 block content
-  
-  .container
-    h1 Pakkeoversigt
+
+  h1 Pakkeoversigt
     table
       tr
         th Pakke ID
@@ -13,5 +12,15 @@ block content
         th Mål (L x B x H i cm)
         th Indhold
         th Værdi (kr)
+      - each parcel in parcels
+        tr
+          td= parcel.parcelID
+          td= parcel.senderName
+          td= parcel.receiverName
+          td= parcel.parcelWeight
+          td= parcel.parcelDimensions
+          td= parcel.parcelContent
+          td= parcel.parcelValue
 
+  div.button-group
     a.button(href="/") Tilbage

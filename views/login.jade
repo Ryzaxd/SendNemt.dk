@@ -1,18 +1,21 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
   
-  .container
-    h1 Admin Login
-    form(action="/admin/login", method="post")
-      label(for="username") Username:
-      input(type="text", id="username", name="username", required)
+  form.admin.form(action="/admin/login", method="post")
+    .section
+      div.container
+        h1 Admin Login
 
-      label(for="password") Password:
-      input(type="password", id="password", name="password", required)
+        div.input-group
+          label(for="username") Username:
+          input(type="text", id="username", name="username", required)
 
-      button(type="submit") Login
+        div.input-group
+          label(for="password") Password:
+          input(type="password", id="password", name="password", required)
 
-    a.button(href="/") Tilbage
+    div.button-group
+      button.login-button(type="submit") Login
+
+      a.button(href="/") Tilbage

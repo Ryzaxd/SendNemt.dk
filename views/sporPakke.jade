@@ -1,13 +1,18 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  img#logo(src="./images/sendnemt.png")
   
-  form(action="/tracePackage", method="post")
-    label(for="hash") Indtast pakke ID:
-    input#hash(type="text", name="hash")
-    button(type="submit") Spor pakke
+  form.sporPakke-form(action="/tracePackage", method="post")
+    // Spor pakke
+    .section
+      div.container
+        h2 Her kan du spore din pakke
 
-    a.button(href="/") Tilbage
+        div.input-group
+          label(for="hash") Indtast pakke ID:
+          input#hash(type="text", name="hash")
+
+    div.button-group
+      button.spor-button(type="submit") Spor pakke
+
+      a.button(href="/") Tilbage
