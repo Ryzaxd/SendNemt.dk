@@ -24,6 +24,27 @@ nav li {
   margin-right: 20px;
 }
 
+.sendnemt {
+  font-family: 'Arial', sans-serif;
+  font-size: 2em;
+  color: #ffffff;
+  text-decoration: none;
+  letter-spacing: 0.1em; 
+  text-align: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  background-color: #094909; 
+  padding: 10px 20px; 
+  border-radius: 5px; 
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+  transition: all 0.3s ease; 
+}
+
+.sendnemt:hover {
+  background-color: #3e8e41; 
+  color: #ffffff; 
+}
+
 /* a.button generalt */
 .button {
   display: inline-block;

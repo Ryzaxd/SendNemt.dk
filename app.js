@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 
 var indexRouter = require('./routes/index');
-var formularRouter = require('./routes/formular');
 
 var app = express();
 
@@ -30,10 +29,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', indexRouter);
-app.use('/formular', formularRouter);
+app.use('/formular', indexRouter);
 app.use('/sporPakke', indexRouter);
 app.use('/pakkeOversigt', indexRouter);
 app.use('/login', indexRouter);
+app.use('/submit-parcel-info', indexRouter);
 
 
 // catch 404 and forward to error handler
@@ -51,5 +51,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;
