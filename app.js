@@ -34,6 +34,7 @@ app.use('/sporPakke', indexRouter);
 app.use('/pakkeOversigt', indexRouter);
 app.use('/login', indexRouter);
 app.use('/submit-parcel-info', indexRouter);
+app.use('/visPakkeID', indexRouter);
 
 
 // catch 404 and forward to error handler

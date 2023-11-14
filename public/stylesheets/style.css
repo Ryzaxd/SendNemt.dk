@@ -207,6 +207,23 @@ button.submit-button:active {
   transform: translateY(4px);
 }
 
+/* visPakkeID */
+.lead {
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.package-id {
+  font-size: 2em;
+  text-align: center;
+  color: #000000;
+}
+
+.container2 {
+  margin-top: auto;
+  width: 50%;
+  margin: auto;
+}
 
 /* generelt */
 .section {

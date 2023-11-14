@@ -3,6 +3,7 @@ var router = express.Router();
 var sqlite3 = require('sqlite3').verbose();
 var db = require('../models');
 const generateHash = require('../utils/hashGenerator');
+const { Transaction } = require('../models');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -39,7 +40,15 @@ router.post('/submit-parcel-info', async function(req, res, next) {
     const sender = await db.User.create(senderInfo);
     const receiver = await db.User.create(receiverInfo);
 
-    const Package = await db.Package.create(req.body);
+    const Package = await db.Package.create({
+      senderID: sender.id,
+      recipientID: receiver.id,
+      weight: req.body.weight,
+      dimensions: req.body.dimensions,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
     const Transaction = await db.Transaction.create({
       packageID: Package.id,
       senderID: sender.id,
@@ -49,9 +58,85 @@ router.post('/submit-parcel-info', async function(req, res, next) {
       updatedAt: new Date(),
     });
   
-    res.redirect('/');
+    res.redirect('/visPakkeID');
   } catch (err) {
     console.error(err);
+  }
+});/* Post submit formular page. */
+router.post('/submit-parcel-info', async function(req, res, next) {
+  try {
+    const senderInfo = {
+      name: req.body.senderName,
+      email: req.body.senderEmail,
+      phone: req.body.senderPhone,
+      address: req.body.senderAddress,
+      zipcode: req.body.senderZipcode,
+      city: req.body.senderCity,
+    };
+
+    const receiverInfo = {
+      name: req.body.receiverName,
+      email: req.body.receiverEmail,
+      phone: req.body.receiverPhone,
+      address: req.body.receiverAddress,
+      zipcode: req.body.receiverZipcode,
+      city: req.body.receiverCity,
+    };
+
+    // Create sender and receiver users
+    const sender = await db.User.create(senderInfo);
+    const receiver = await db.User.create(receiverInfo);
+
+    const Package = await db.Package.create({
+      senderID: sender.id,
+      recipientID: receiver.id,
+      weight: req.body.weight,
+      dimensions: req.body.dimensions,
+      contents: req.body.contents,
+      value: req.body.value,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    const Transaction = await db.Transaction.create({
+      packageID: Package.id,
+      senderID: sender.id,
+      recipientID: receiver.id,
+      hash: generateHash(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    res.redirect('/visPakkeID');
+  } catch (err) {
+    console.error('Error submitting parcel info:', err);
+
+    // Check if it's a validation error
+    if (err.name === 'SequelizeValidationError') {
+      return res.status(400).send('Validation errors');
+    }
+
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+/* GET visPakkeID page. */
+router.get('/visPakkeID', async function(req, res, next) {
+  try {
+    let transaction = await Transaction.findOne({
+      order: [
+        ['createdAt', 'DESC']
+      ]
+    });
+
+    if (transaction) {
+      res.render('visPakkeID', {title: 'SendNemt', hash: transaction.hash });
+    } else {
+      res.render('visPakkeID', {title: 'SendNemt', hash: 'No transactions found' });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
   }
 });
 
