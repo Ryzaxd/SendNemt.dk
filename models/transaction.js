@@ -1,18 +1,17 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const e = require('express');
+const {Model} = require('sequelize');
+const { User } = require('./user'); 
+const { Package } = require('./package'); 
 module.exports = (sequelize, DataTypes) => {
   class Transaction extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      Transaction.belongsTo(models.User, { foreignKey: 'senderID', as: 'sender' });
+      Transaction.belongsTo(models.User, { foreignKey: 'recipientID', as: 'recipient' });
+      Transaction.belongsTo(models.Package, { foreignKey: 'id', as: 'package' });
     }
   }
+
   Transaction.init({
     packageID: DataTypes.INTEGER,
     senderID: DataTypes.INTEGER,
@@ -22,5 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Transaction',
   });
+
   return Transaction;
 };
+

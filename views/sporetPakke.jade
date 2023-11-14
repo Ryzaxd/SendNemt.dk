@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  .container
+    h2 Din pakke information
+    .info-container
+      p Afsenders navn: 
+        span #{transaction.sender.name}
+      p Afsenders Adresse: 
+        span #{transaction.sender.address}
+      p Modtagers navn: 
+        span #{transaction.recipient.name}
+      p Modtagers Adresse: 
+        span #{transaction.recipient.address}
+      p vægt: 
+        span #{transaction.package.weight} kg
+      p Mål (L x B x H i cm): 
+        span #{transaction.package.dimensions}
+      p Indhold: 
+        span #{transaction.package.contents}
+      p Værdi (kr): 
+        span #{transaction.package.value}
+    
+    div.button-group
+    a.button(href="/") Tilbage

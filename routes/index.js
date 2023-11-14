@@ -4,6 +4,8 @@ var sqlite3 = require('sqlite3').verbose();
 var db = require('../models');
 const generateHash = require('../utils/hashGenerator');
 const { Transaction } = require('../models');
+const { User } = require('../models');
+const { Package } = require('../models');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -98,6 +100,41 @@ router.get('/sporPakke', function(req, res, next) {
   res.render('sporPakke', { title: 'SendNemt' });
 });
 
+/* Post sporPakke page. */
+router.post('/tracePackage', async function(req, res, next) {
+  try {
+    const hash = req.body.hash;
+
+    const transaction = await db.Transaction.findOne({
+      where: { hash: hash },
+      include: [
+        { model: User, as: 'sender' },
+        { model: User, as: 'recipient' },
+        { model: Package, as: 'package' },
+      ],
+    });
+
+    if (transaction) {
+      res.render('sporetPakke', {
+        title: 'SendNemt',
+        senderName: transaction.sender.name,
+        senderAddress: transaction.sender.address,
+        recipientName: transaction.recipient.name,
+        recipientAddress: transaction.recipient.address,
+        weight: transaction.package.weight,
+        dimensions: transaction.package.dimensions,
+        contents: transaction.package.contents,
+        value: transaction.package.value,
+        transaction: transaction,
+      });
+    } else {
+      res.render('error', { title: 'SendNemt' }); 
+    }
+  } catch (error) {
+    console.error(error);
+    res.render('error', { title: 'SendNemt', message: 'Internal Server Error' });
+  }
+});
 
 // Middleware to check if the user is authenticated
 const isAuthenticated = (req, res, next) => {

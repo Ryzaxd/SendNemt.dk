@@ -1,16 +1,17 @@
 'use strict';
+const e = require('express');
 const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      User.hasMany(models.Transaction, { foreignKey: 'senderID', as: 'sentTransactions' });
+      User.hasMany(models.Transaction, { foreignKey: 'recipientID', as: 'receivedTransactions' });
+      
+      const Package = require('./package'); 
+      User.hasMany(models.Package, { foreignKey: 'senderID', as: 'sentPackages' });
+      User.hasMany(models.Package, { foreignKey: 'recipientID', as: 'receivedPackages' });
     }
   }
   User.init({
