@@ -45,53 +45,6 @@ router.post('/submit-parcel-info', async function(req, res, next) {
       recipientID: receiver.id,
       weight: req.body.weight,
       dimensions: req.body.dimensions,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-
-    const Transaction = await db.Transaction.create({
-      packageID: Package.id,
-      senderID: sender.id,
-      recipientID: receiver.id,
-      hash: generateHash(),
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-  
-    res.redirect('/visPakkeID');
-  } catch (err) {
-    console.error(err);
-  }
-});/* Post submit formular page. */
-router.post('/submit-parcel-info', async function(req, res, next) {
-  try {
-    const senderInfo = {
-      name: req.body.senderName,
-      email: req.body.senderEmail,
-      phone: req.body.senderPhone,
-      address: req.body.senderAddress,
-      zipcode: req.body.senderZipcode,
-      city: req.body.senderCity,
-    };
-
-    const receiverInfo = {
-      name: req.body.receiverName,
-      email: req.body.receiverEmail,
-      phone: req.body.receiverPhone,
-      address: req.body.receiverAddress,
-      zipcode: req.body.receiverZipcode,
-      city: req.body.receiverCity,
-    };
-
-    // Create sender and receiver users
-    const sender = await db.User.create(senderInfo);
-    const receiver = await db.User.create(receiverInfo);
-
-    const Package = await db.Package.create({
-      senderID: sender.id,
-      recipientID: receiver.id,
-      weight: req.body.weight,
-      dimensions: req.body.dimensions,
       contents: req.body.contents,
       value: req.body.value,
       createdAt: new Date(),
