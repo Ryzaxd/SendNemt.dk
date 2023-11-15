@@ -8,17 +8,17 @@ const { User } = require('../models');
 const { Package } = require('../models');
 const pakkeStatus = require('../config/pakkeStatus.json');
 
-/* GET home page. */
+// GET home page.
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'SendNemt' });
 });
 
-/* GET formular page. */
+// GET formular page
 router.get('/formular', function(req, res, next) {
   res.render('formular', { title: 'SendNemt' });
 });
 
-/* Post submit formular page. */
+// Post submit formular page
 router.post('/submit-parcel-info', async function(req, res, next) {
   try {
     const senderInfo = {
@@ -76,7 +76,7 @@ router.post('/submit-parcel-info', async function(req, res, next) {
   }
 });
 
-/* GET visPakkeID page. */
+// GET visPakkeID page
 router.get('/visPakkeID', async function(req, res, next) {
   try {
     let transaction = await Transaction.findOne({
@@ -96,12 +96,12 @@ router.get('/visPakkeID', async function(req, res, next) {
   }
 });
 
-/* GET sporPakke page. */
+// GET sporPakke page
 router.get('/sporPakke', function(req, res, next) {
   res.render('sporPakke', { title: 'SendNemt' });
 });
 
-/* Post sporPakke page. */
+// Post sporPakke page
 router.post('/tracePackage', async function(req, res, next) {
   try {
     const hash = req.body.hash;
@@ -152,6 +152,7 @@ const isAuthenticated = (req, res, next) => {
   }
 };
 
+// GET pakkeOversigt page
 router.get('/pakkeOversigt', isAuthenticated, async (req, res) => {
   try {
     const packages = await Package.findAll({
@@ -172,10 +173,12 @@ router.get('/pakkeOversigt', isAuthenticated, async (req, res) => {
   }
 });
 
+// GET login
 router.get('/login', (req, res) => {
   res.render('login', {title: 'SendNemt'}); 
 });
 
+// POST login
 router.post('/admin/login', (req, res) => {
   const { username, password } = req.body;
 
