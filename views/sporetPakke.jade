@@ -2,17 +2,24 @@ extends layout
 
 block content
   .container
-    h2 Din pakke information
-    .info-container
+    h1 Din pakkes information
+    div.info-container
+      h2 Afsenders information
       p Afsenders navn: 
         span #{transaction.sender.name}
-      p Afsenders Adresse: 
+      p Afsenders adresse: 
         span #{transaction.sender.address}
+    
+    div.info-container
+      h2 Modtagers information
       p Modtagers navn: 
         span #{transaction.recipient.name}
-      p Modtagers Adresse: 
+      p Modtagers adresse: 
         span #{transaction.recipient.address}
-      p vægt: 
+
+    div.info-container
+      h2 Pakke information
+      p Vægt: 
         span #{transaction.package.weight} kg
       p Mål (L x B x H i cm): 
         span #{transaction.package.dimensions}
@@ -20,6 +27,9 @@ block content
         span #{transaction.package.contents}
       p Værdi (kr): 
         span #{transaction.package.value}
+      p Status: 
+        span #{randomMessage}
+        
     
     div.button-group
-    a.button(href="/") Tilbage
+      a.button(href="/") Tilbage

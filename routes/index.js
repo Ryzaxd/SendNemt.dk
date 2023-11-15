@@ -6,6 +6,7 @@ const generateHash = require('../utils/hashGenerator');
 const { Transaction } = require('../models');
 const { User } = require('../models');
 const { Package } = require('../models');
+const pakkeStatus = require('../config/pakkeStatus.json');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -115,6 +116,11 @@ router.post('/tracePackage', async function(req, res, next) {
     });
 
     if (transaction) {
+
+      const packageStatusMessages = pakkeStatus.pakke;
+      const randomIndex = Math.floor(Math.random() * packageStatusMessages.length);
+      const randomMessage = packageStatusMessages[randomIndex];
+
       res.render('sporetPakke', {
         title: 'SendNemt',
         senderName: transaction.sender.name,
@@ -126,6 +132,7 @@ router.post('/tracePackage', async function(req, res, next) {
         contents: transaction.package.contents,
         value: transaction.package.value,
         transaction: transaction,
+        randomMessage: randomMessage,
       });
     } else {
       res.render('error', { title: 'SendNemt' }); 
