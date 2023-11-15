@@ -152,8 +152,24 @@ const isAuthenticated = (req, res, next) => {
   }
 };
 
-router.get('/pakkeOversigt', isAuthenticated, (req, res) => {
-  res.render('pakkeOversigt', { title: 'Sendnemt', user: req.session.user });
+router.get('/pakkeOversigt', isAuthenticated, async (req, res) => {
+  try {
+    const packages = await Package.findAll({
+      include: [
+        { model: User, as: 'sender', attributes: ['name'] },
+        { model: User, as: 'receiver', attributes: ['name'] },
+      ],
+    });
+
+    res.render('pakkeOversigt', {
+      title: 'Sendnemt',
+      user: req.session.user,
+      packages: packages,
+    });
+  } catch (error) {
+    console.error('Error fetching packages:', error);
+    res.render('error', { title: 'Sendnemt', message: 'Internal Server Error' });
+  }
 });
 
 router.get('/login', (req, res) => {

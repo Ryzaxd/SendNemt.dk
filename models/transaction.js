@@ -1,8 +1,7 @@
 'use strict';
 const e = require('express');
 const {Model} = require('sequelize');
-const { User } = require('./user'); 
-const { Package } = require('./package'); 
+
 module.exports = (sequelize, DataTypes) => {
   class Transaction extends Model {
     static associate(models) {

@@ -4,23 +4,26 @@ block content
 
   h1 Pakkeoversigt
     table
-      tr
-        th Pakke ID
-        th Afsender
-        th Modtager
-        th Vægt (kg)
-        th Mål (L x B x H i cm)
-        th Indhold
-        th Værdi (kr)
-      - each parcel in parcels
+      thead
         tr
-          td= parcel.parcelID
-          td= parcel.senderName
-          td= parcel.receiverName
-          td= parcel.parcelWeight
-          td= parcel.parcelDimensions
-          td= parcel.parcelContent
-          td= parcel.parcelValue
+          th Pakke ID
+          th Afsender
+          th Modtager
+          th Vægt (kg)
+          th Mål (L x B x H i cm)
+          th Indhold
+          th Værdi (kr)
+
+      tbody
+      - each package in packages
+        tr
+          td= package.id
+          td= package.sender.name
+          td= package.receiver.name
+          td= package.weight
+          td= package.dimensions
+          td= package.contents
+          td= package.value
 
   div.button-group
     a.button(href="/") Tilbage

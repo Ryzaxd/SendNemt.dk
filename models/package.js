@@ -1,11 +1,16 @@
 'use strict';
-const { Model } = require('sequelize');
+const e = require('express');
+const { Model } = require('sequelize'); 
+
 module.exports = (sequelize, DataTypes) => {
   class Package extends Model {
     static associate(models) {
       Package.belongsTo(models.Transaction, { foreignKey: 'id', as: 'package' });
       Package.belongsTo(models.Transaction, { foreignKey: 'senderID', as: 'sentTransactions' });
       Package.belongsTo(models.Transaction, { foreignKey: 'recipientID', as: 'receivedTransactions' });
+
+      Package.belongsTo(models.User, { foreignKey: 'senderID', as: 'sender' });
+      Package.belongsTo(models.User, { foreignKey: 'recipientID', as: 'receiver' });
     }
   }
 
