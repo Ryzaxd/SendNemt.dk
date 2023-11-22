@@ -131,8 +131,9 @@ router.post('/tracePackage', async function(req, res, next) {
         dimensions: transaction.package.dimensions,
         contents: transaction.package.contents,
         value: transaction.package.value,
-        transaction: transaction,
         randomMessage: randomMessage,
+        transaction: transaction,
+        
       });
     } else {
       res.render('error', { title: 'SendNemt' }); 
