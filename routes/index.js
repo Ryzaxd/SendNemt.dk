@@ -101,7 +101,6 @@ router.get('/sporPakke', function(req, res, next) {
   res.render('sporPakke', { title: 'SendNemt' });
 });
 
-// Post sporPakke page
 router.post('/tracePackage', async function(req, res, next) {
   try {
     const hash = req.body.hash;
@@ -109,14 +108,14 @@ router.post('/tracePackage', async function(req, res, next) {
     const transaction = await db.Transaction.findOne({
       where: { hash: hash },
       include: [
-        { model: User, as: 'sender' },
-        { model: User, as: 'recipient' },
-        { model: Package, as: 'package' },
+        { model: db.User, as: 'sender' },
+        { model: db.User, as: 'recipient' },
+        { model: db.Package, as: 'package' },
       ],
     });
 
     if (transaction) {
-
+      
       const packageStatusMessages = pakkeStatus.pakke;
       const randomIndex = Math.floor(Math.random() * packageStatusMessages.length);
       const randomMessage = packageStatusMessages[randomIndex];
@@ -133,7 +132,6 @@ router.post('/tracePackage', async function(req, res, next) {
         value: transaction.package.value,
         randomMessage: randomMessage,
         transaction: transaction,
-        
       });
     } else {
       res.render('error', { title: 'SendNemt' }); 

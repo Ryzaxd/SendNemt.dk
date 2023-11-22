@@ -20,13 +20,13 @@ block content
     div.info-container
       h2 Pakke information
       p Vægt: 
-        span #{transaction.package.weight} kg
+        span #{transaction.package ? transaction.package.weight : 'N/A'} kg
       p Mål (L x B x H i cm): 
-        span #{transaction.package.dimensions}
+        span #{transaction.package ? transaction.package.dimensions : 'N/A'}
       p Indhold: 
-        span #{transaction.package.contents}
+        span #{transaction.package ? transaction.package.contents : 'N/A'}
       p Værdi (kr): 
-        span #{transaction.package.value}
+        span #{transaction.package ? transaction.package.value : 'N/A'}
       p Status: 
         span #{randomMessage}
         

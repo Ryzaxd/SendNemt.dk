@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Transaction.belongsTo(models.User, { foreignKey: 'senderID', as: 'sender' });
       Transaction.belongsTo(models.User, { foreignKey: 'recipientID', as: 'recipient' });
-      Transaction.belongsTo(models.Package, { foreignKey: 'id', as: 'package' });
+      
+      Transaction.belongsTo(models.Package, { foreignKey: 'packageID', as: 'package' });
     }
   }
 

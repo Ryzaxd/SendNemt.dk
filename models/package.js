@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Package extends Model {
     static associate(models) {
       Package.belongsTo(models.Transaction, { foreignKey: 'id', as: 'package' });
+
       Package.belongsTo(models.Transaction, { foreignKey: 'senderID', as: 'sentTransactions' });
       Package.belongsTo(models.Transaction, { foreignKey: 'recipientID', as: 'receivedTransactions' });
 
