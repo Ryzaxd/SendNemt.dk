@@ -18,7 +18,7 @@ app.use(session({
   secret: 'your-random-secret-key', 
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false }
+  cookie: { secure: true }
 }));
 
 app.use(logger('dev'));
