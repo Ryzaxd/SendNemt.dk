@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/bff21889-eca1-45ea-bf09-f54e944307e1/resourceGroups/Sendnemt/providers/Microsoft.Web/sites/SendNemt",
+    "appService.deploySubpath": "."
+}
