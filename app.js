@@ -18,11 +18,12 @@ app.use(session({
   secret: 'your-random-secret-key', 
   resave: false,
   saveUninitialized: true,
+  cookie: { secure: false }
 }));
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -37,6 +38,7 @@ app.use('/submit-parcel-info', indexRouter);
 app.use('/visPakkeID', indexRouter);
 app.use('/sporetPakke', indexRouter);
 app.use('/tracePackage', indexRouter);
+app.use('/admin/login', indexRouter);
 
 
 // catch 404 and forward to error handler
@@ -58,5 +60,17 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// Graceful shutdown
+const gracefulShutdown = async () => {
+  console.log('Shutting down gracefully...');
+  await sequelize.close();
+  server.close(() => {
+    console.log('Closed out remaining connections');
+    process.exit(0);
+  });
+};
+
+process.on('SIGTERM', gracefulShutdown);
+process.on('SIGINT', gracefulShutdown);
 
 module.exports = app;

@@ -7,6 +7,8 @@ const { Transaction } = require('../models');
 const { User } = require('../models');
 const { Package } = require('../models');
 const pakkeStatus = require('../config/pakkeStatus.json');
+const { Employees } = require('../models');
+const bcrypt = require('bcrypt');
 
 // GET home page.
 router.get('/', function(req, res, next) {
@@ -177,16 +179,30 @@ router.get('/login', (req, res) => {
   res.render('login', {title: 'SendNemt'}); 
 });
 
-// POST login
-router.post('/admin/login', (req, res) => {
+router.post('/admin/login', async (req, res) => {
   const { username, password } = req.body;
 
-  // Simulated authentication logic 
-  if (username === 'admin' && password === 'admin123') {
-    req.session.user = { username }; 
-    res.redirect('/pakkeOversigt');
-  } else {
-    res.redirect('/login'); 
+  try {
+    const employee = await Employees.findOne({ where: { username: username }, attributes: ['username', 'password'] });
+
+    if (!employee) {
+      // User not found
+      return res.redirect('/login');
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, employee.password);
+    console.log('Password valid:', isPasswordValid);
+
+    if (isPasswordValid) {
+      req.session.user = { username: employee.username };
+      return res.redirect('/pakkeOversigt');
+    } else {
+      console.log('Invalid password');
+      return res.redirect('/login');
+    }
+  } catch (error) {
+    console.error(error);
+    res.render('error', { title: 'SendNemt', message: 'Internal Server Error' });
   }
 });
 
