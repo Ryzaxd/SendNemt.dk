@@ -31,7 +31,13 @@ app.use(
     resave: false,
     proxy: true,
     saveUninitialized: true,
-    cookie: { secure: true, sameSite: "none" },
+    cookie: {
+      domain: 'www.sendnemt.azurewebsites.net', 
+      secure: true, 
+      sameSite: "none", 
+      httpOnly: true,
+      maxAge: 24*3600000
+    },
   })
 );
 

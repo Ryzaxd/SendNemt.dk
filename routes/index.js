@@ -144,17 +144,9 @@ router.post('/tracePackage', async function(req, res, next) {
   }
 });
 
-// Middleware to check if the user is authenticated
-const isAuthenticated = (req, res, next) => {
-  if (req.session.user) {
-    next();
-  } else {
-    res.redirect('/login');
-  }
-};
 
 // GET pakkeOversigt page
-router.get('/pakkeOversigt', isAuthenticated, async (req, res) => {
+router.get('/pakkeOversigt', async (req, res) => {
   try {
     const packages = await Package.findAll({
       include: [

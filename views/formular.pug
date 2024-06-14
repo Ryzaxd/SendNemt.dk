@@ -12,27 +12,27 @@ block content
 
         div.input-group
           label(for="senderName") Navn:
-          input#senderName(type="text", id="senderName", name="senderName", required)
+          input#senderName(type="text", name="senderName", required)
 
         div.input-group
           label(for="senderEmail") E-mail:
-          input#senderEmail(type="email", id="senderEmail", name="senderEmail", required)
+          input#senderEmail(type="email", name="senderEmail", required)
 
         div.input-group
           label(for="phone") Telefonnummer:
-          input#senderPhone(type="phone", id="senderPhone", name="senderPhone", required)
+          input#senderPhone(type="phone", name="senderPhone", required)
 
         div.input-group
           label(for="senderAddress") Adresse:
-          input#senderAdress(type="address", id="senderAddress", name="senderAddress", required)
+          input#senderAdress(type="address", name="senderAddress", required)
 
         div.input-group
           label(for="senderZipcode") Postnummer:
-          input#senderZipcode(type="zipcode", id="senderZipcode", name="senderZipcode", required)
+          input#senderZipcode(type="zipcode", name="senderZipcode", required)
 
-         div.input-group
+        div.input-group
           label(for="senderCity") By:
-          input#senderCity(type="city", id="senderCity", name="senderCity", required)
+          input#senderCity(type="city", name="senderCity", required)
 
     // Modtagers information
     .section
@@ -41,27 +41,27 @@ block content
 
         div.input-group
           label(for="receiverName") Navn:
-          input#receiverName(type="text", id="receiverName", name="receiverName", required)
+          input#receiverName(type="text", name="receiverName", required)
 
         div.input-group
           label(for="receiverEmail") E-mail:
-          input#receiverEmail(type="email", id="receiverEmail", name="receiverEmail", required)
+          input#receiverEmail(type="email", name="receiverEmail", required)
 
         div.input-group
           label(for="receiverPhone") Telefonnummer:
-          input#receiverPhone(type="tel", id="receiverPhone", name="receiverPhone", required)
+          input#receiverPhone(type="tel", name="receiverPhone", required)
 
         div.input-group
           label(for="receiverAddress") Adresse:
-          input#receiverAddress(type="address", id="receiverAddress", name="receiverAddress", required)
+          input#receiverAddress(type="address", name="receiverAddress", required)
 
         div.input-group
           label(for="receiverZipcode") Postnummer:
-          input#receiverZipcode(type="zipcode", id="receiverZipcode", name="receiverZipcode", required)
+          input#receiverZipcode(type="zipcode", name="receiverZipcode", required)
 
-         div.input-group
+        div.input-group
           label(for="receiverCity") By:
-          input#receiverCity(type="city", id="receiverCity", name="receiverCity", required)
+          input#receiverCity(type="city", name="receiverCity", required)
 
 
     // Pakkeinformation
@@ -71,19 +71,19 @@ block content
 
         div.input-group
           label(for="weight") Vægt (kg):
-          input#parcelWeight(type="number", id="weight", name="weight", min="0", step="0.01", required)
+          input#parcelWeight(type="number", name="weight", min="0", step="0.01", required)
 
         div.input-group
           label(for="dimensions") Mål (L x B x H i cm):
-          input#parcelDimensions(type="text", id="dimensions", name="dimensions", required)
+          input#parcelDimensions(type="text", name="dimensions", required)
 
         div.input-group
           label(for="contents") Indhold:
-          input#parcelContents(type="text", id="contents", name="contents", required)
+          input#parcelContents(type="text", name="contents", required)
 
         div.input-group
           label(for="value") Værdi (kr):
-          input#parcelValue(type="number", id="value", name="value", min="0", step="0.01", required)
+          input#parcelValue(type="number", name="value", min="0", step="0.01", required)
 
     div.button-group
       button.submit-button(type="submit") Indsend
