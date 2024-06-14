@@ -146,7 +146,8 @@ router.post('/tracePackage', async function(req, res, next) {
 
 // Middleware to check if the user is authenticated
 const isAuthenticated = (req, res, next) => {
-  if (req.session.employee) {
+  console.log('Checking if authenticated, session user:', req.session.user);
+  if (req.session.user) {
     next();
   } else {
     res.redirect('/login');
@@ -179,6 +180,7 @@ router.get('/login', (req, res) => {
   res.render('login', {title: 'SendNemt'}); 
 });
 
+// POST login
 router.post('/admin/login', async (req, res) => {
   const { username, password } = req.body;
 
@@ -195,6 +197,7 @@ router.post('/admin/login', async (req, res) => {
 
     if (isPasswordValid) {
       req.session.user = { username: employee.username };
+      console.log('Session user set:', req.session.user);
       return res.redirect('/pakkeOversigt');
     } else {
       console.log('Invalid password');
