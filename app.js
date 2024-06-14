@@ -5,7 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var bcrypt = require('bcrypt');
 
 var indexRouter = require('./routes/index');
 
