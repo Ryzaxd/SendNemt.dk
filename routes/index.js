@@ -146,7 +146,7 @@ router.post('/tracePackage', async function(req, res, next) {
 
 // Middleware to check if the user is authenticated
 const isAuthenticated = (req, res, next) => {
-  if (req.session.employee) {
+  if (req.session.user) {
     next();
   } else {
     res.redirect('/login');
