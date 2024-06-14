@@ -6,10 +6,16 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var bcrypt = require('bcrypt');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const { sequelize } = require('./models');
 
 var indexRouter = require('./routes/index');
 
 var app = express();
+
+const sessionStore = new SequelizeStore({
+  db: sequelize,
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -17,9 +23,12 @@ app.set('view engine', 'jade');
 
 app.use(session({
   secret: 'your-random-secret-key', 
+  store: sessionStore,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true }
+  cookie: {
+    maxAge: 2 * 60 * 60 * 1000,
+  }
 }));
 
 app.use(logger('dev'));
@@ -41,6 +50,17 @@ app.use('/sporetPakke', indexRouter);
 app.use('/tracePackage', indexRouter);
 app.use('/admin/login', indexRouter);
 
+// Sync session store
+sessionStore.sync();
+
+// Sync database and start server
+sequelize.sync().then(() => {
+  app.listen(3000, () => {
+    console.log('Server is running on http://localhost:3000');
+  });
+}).catch(error => {
+  console.error('Unable to connect to the database:', error);
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
