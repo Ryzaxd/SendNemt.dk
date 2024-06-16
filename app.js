@@ -9,6 +9,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const db = require('./models'); 
 const bcrypt = require('bcrypt');
 const indexRouter = require('./routes/index');
+const helmet = require('helmet');
 
 const app = express();
 
@@ -40,6 +41,38 @@ app.use(
     },
   })
 );
+
+// Helmet security setup
+app.use(helmet());
+
+// Protects against clickjacking by setting the X-Frame-Options header to DENY
+app.use(helmet.frameguard({ action: 'deny' }));
+
+// prevent cross-site scripting (XSS), clickjacking, and other code injection attacks.
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+    scriptSrc: ["'self'"],
+    objectSrc: ["'none'"],
+    upgradeInsecureRequests: [],
+  }
+}));
+
+// HTTP Strict Transport Security (HSTS): enforces secure (HTTPS) connections to your server.
+app.use(helmet.hsts({
+  maxAge: 63072000, 
+  includeSubDomains: true,
+  preload: true
+}));
+
+// hides the X-Powered-By header to prevent attackers from knowing that your app is powered by
+app.use(helmet.hidePoweredBy());
+
+// Prevents browsers from performing MIME-sniffing or sniffing the content-type
+app.use(helmet.noSniff());
+
+// Prevents clickjacking attacks by setting the X-Frame-Options header  
+app.use(helmet.xssFilter());
 
 // Middleware setups
 app.use(logger('dev'));
